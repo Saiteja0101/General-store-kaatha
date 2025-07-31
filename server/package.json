@@ -1,9 +1,23 @@
 {
+  "name": "server",
+  "version": "1.0.0",
+  "description": "This is a general store kaatha app for store owners to store the due amount of customers",
+  "license": "ISC",
+  "author": "Saiteja Chippa",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
-    "express": "^4.21.2",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "pg": "^8.14.1"
+    "nodemon": "^3.1.10",
+    "pg": "^8.16.3",
+    "twilio": "^5.8.0"
   }
 }

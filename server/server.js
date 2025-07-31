@@ -1,16 +1,30 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
+const express = require('express')
+const cors = require('cors')
+const ownerRoutes = require('./ownerRoutes.js')
+const authRoutes = require('./authRoutes.js')
+const dotenv = require('dotenv')
+dotenv.config()
+const app = express()
+const PORT = process.env.PORT || 5001
+
+// middleware
+app.use(cors())
+app.use(express.json())
 
 
-// Middleware
-app.use(express.json()); // Parse JSON data
-app.use(cors()); // Allow frontend to access backend
+// server checking
+app.get('/', (req, res) =>{
+    res.send("server running...")
+})
 
-// Import and use routes
-const authRoutes = require('./routes/authRoutes');
-app.use('/api/auth', authRoutes);
+// auth Route
+app.use('/auth', authRoutes)
 
-// Start server
-const PORT = 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// owner Route
+app.use('/', ownerRoutes)
+
+
+app.listen(PORT, () => {
+    console.log("Server running on PORT: ", PORT);
+    
+})

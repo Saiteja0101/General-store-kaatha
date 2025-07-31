@@ -1,26 +1,29 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import OwnerDashboard from "./pages/OwnerDashboard";
-import CustomerDashboard from "./pages/CustomerDashboard";
+import Dashboard from "./pages/Dashboard";
 import AddCustomer from "./pages/AddCustomer";
-import RemoveorEdit from "./pages/RemoveorEdit";
+import RemoveCustomer from "./pages/RemoveCustomer";
 import ViewDues from "./pages/ViewDues";
+import UpdateDues from "./pages/UpdateDues"
+import Reminder from "./pages/Reminder";
+import ErrorPage from "./pages/ErrorPage";
 
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/customerDashboard" element={<CustomerDashboard />} />
-        <Route path="/ownerDashboard" element={<OwnerDashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/addCustomer" element={<AddCustomer />} />
-        <Route path="/removeOrEdit" element={<RemoveorEdit />} />
+        <Route path="/removeCustomer" element={<RemoveCustomer />} />
         <Route path="/viewDues" element={<ViewDues />} />
+        <Route path="/updateDues" element={<UpdateDues />} />
+        <Route path="/reminder" element={<Reminder />} />
+        <Route path="/error" element={<ErrorPage />} />
+
 
       </Routes>
     </Router>
