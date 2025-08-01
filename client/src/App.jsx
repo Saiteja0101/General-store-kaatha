@@ -8,7 +8,6 @@ import RemoveCustomer from "./pages/RemoveCustomer";
 import ViewDues from "./pages/ViewDues";
 import UpdateDues from "./pages/UpdateDues"
 import Reminder from "./pages/Reminder";
-import ErrorPage from "./pages/ErrorPage";
 
 const App = () => {
   return (
@@ -22,9 +21,6 @@ const App = () => {
         <Route path="/viewDues" element={<ViewDues />} />
         <Route path="/updateDues" element={<UpdateDues />} />
         <Route path="/reminder" element={<Reminder />} />
-        <Route path="/error" element={<ErrorPage />} />
-
-
       </Routes>
     </Router>
   );
