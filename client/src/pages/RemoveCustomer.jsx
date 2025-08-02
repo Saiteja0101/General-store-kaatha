@@ -33,7 +33,7 @@ const RemoveorEdit = () => {
                 setError(data.message || "Customer not found")
             }
         } catch (err) {
-            setError(data.message || "Something went wrong")
+            setError(err.message || "Something went wrong")
         }
 
 

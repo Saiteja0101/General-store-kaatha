@@ -33,7 +33,7 @@ const Login = () => {
       }
 
     } catch (error) {
-      setError(data.message || "Something went wrong")
+      setError(error.message || "Something went wrong")
     }
   };
   if (error) {

@@ -28,7 +28,7 @@ const ViewDues = () => {
                 setError(data.message || "Failed to display dues")
             }
         } catch (error) {
-            setError(data.message || "Something went wrong")
+            setError(error.message || "Something went wrong")
         }
     };
     if (error) {

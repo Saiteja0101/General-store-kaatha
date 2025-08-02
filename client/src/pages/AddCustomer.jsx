@@ -48,7 +48,7 @@ const AddCustomer = () => {
                 setError(data.message || "Failed to add customer")
             }
         } catch (err) {
-            setError(data.message || "Something went wrong")
+            setError(err.message || "Something went wrong")
         }
     };
 

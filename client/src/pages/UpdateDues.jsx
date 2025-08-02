@@ -45,7 +45,7 @@ const RemoveorEdit = () => {
                 setError(data.message || "Failed to update customer dues or Customer not Found")
             }
         } catch (err) {
-            setError(data.message || "Something went wrong")
+            setError(err.message || "Something went wrong")
         }
     };
 

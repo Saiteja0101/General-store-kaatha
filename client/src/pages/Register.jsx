@@ -40,7 +40,7 @@ const Register = () => {
         setError(data.message || "Registration failed")
       }
     } catch (err) {
-      setError(data.message || "Something went wrong")
+      setError(err.message || "Something went wrong")
     }
   };
   if (error) {
@@ -66,7 +66,7 @@ const Register = () => {
         <Home />
         <div className=" flex items-center justify-center">
           <div className="bg-white p-8 rounded-lg shadow-md w-96">
-            <Link to='/login' className="flex gap-2">
+            <Link to='/' className="flex gap-2">
               <ArrowLeft size={24} className='text-black mt-1' />
               <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
             </Link>
