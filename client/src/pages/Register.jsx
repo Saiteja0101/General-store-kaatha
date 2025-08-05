@@ -16,12 +16,13 @@ const Register = () => {
   const { username, phoneNo, password, storename } = formData;
   // handleRegister
   const handleRegister = async (e) => {
+    //const localUrl = "http://localhost:5001/"
     e.preventDefault();
     try {
       if (!username || !phoneNo || !password || !storename) {
         return alert("All Fields are Mandatory")
       }
-      const response = await fetch('http://localhost:5001/auth/register', {
+      const response = await fetch('https://general-store-kaatha-production.up.railway.app/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': "application/json"
