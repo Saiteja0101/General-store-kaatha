@@ -16,11 +16,12 @@ const RemoveorEdit = () => {
     }, [])
     const handleSubmit = async (e) => {
         e.preventDefault();
+        //const localUrl = "http://localhost:5001/"
         try {
             if (!phone_no) {
                 return alert("All Fields are Mandatory")
             }
-            const response = await fetch('http://localhost:5001/owner/removecustomer', {
+            const response = await fetch('https://general-store-kaatha-production.up.railway.app/owner/removecustomer', {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ phone_no, user_id })
