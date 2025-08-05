@@ -14,7 +14,7 @@ const Login = () => {
 
   // handle login
   const handleLogin = async (e) => {
-    //const localUrl = http://localhost:5001/
+    //const localUrl = "http://localhost:5001/"
     e.preventDefault();
     try {
       const response = await fetch("https://general-store-kaatha-production.up.railway.app/auth/login", {
