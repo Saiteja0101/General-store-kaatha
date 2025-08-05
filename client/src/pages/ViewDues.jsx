@@ -16,8 +16,9 @@ const ViewDues = () => {
         }
     }, [navigate, user_id]);
     const viewDue = async () => {
+        //const localUrl = "http://localhost:5001/"
         try {
-            const response = await fetch(`http://localhost:5001/owner/viewdues?user_id=${user_id}`, {
+            const response = await fetch(`https://general-store-kaatha-production.up.railway.app/owner/viewdues?user_id=${user_id}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             })
