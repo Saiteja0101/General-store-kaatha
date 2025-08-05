@@ -14,17 +14,14 @@ const Register = () => {
   };
 
   const { username, phoneNo, password, storename } = formData;
-
-
   // handleRegister
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const user_id = localStorage.getItem("user_id");
       if (!username || !phoneNo || !password || !storename) {
         return alert("All Fields are Mandatory")
       }
-      const response = await fetch('https://general-store-kaatha-production.up.railway.app/auth/register', {
+      const response = await fetch('http://localhost:5001/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': "application/json"
@@ -33,8 +30,9 @@ const Register = () => {
       })
 
       const data = await response.json()
+      console.log(data);
       if (response.ok) {
-        localStorage.setItem("user_id", data.user.user_id);
+        localStorage.setItem("user_id", data.model);
         navigate('/dashboard')
       } else {
         setError(data.message || "Registration failed")
@@ -47,8 +45,8 @@ const Register = () => {
     return (
       <ErrorPage
         errorTitle={error}
-        navigater="/register"
-        buttonName="Back to Register page"
+        navigater="/"
+        buttonName="Go back"
       />
     );
   }
@@ -66,10 +64,7 @@ const Register = () => {
         <Home />
         <div className=" flex items-center justify-center">
           <div className="bg-white p-8 rounded-lg shadow-md w-96">
-            <Link to='/' className="flex gap-2">
-              <ArrowLeft size={24} className='text-black mt-1' />
-              <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
-            </Link>
+            <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
             <form onSubmit={handleRegister}>
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
@@ -92,6 +87,7 @@ const Register = () => {
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="If you have a Store, Enter Name"
                   onChange={handleChange}
+                  required
                 />
               </div>
               <div className="mb-4">

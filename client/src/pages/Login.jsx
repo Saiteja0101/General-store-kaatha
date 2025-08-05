@@ -16,7 +16,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://general-store-kaatha-production.up.railway.app/auth/login", {
+      const response = await fetch("http://localhost:5001/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,7 +26,7 @@ const Login = () => {
 
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem('user_id', data.user.id);
+        localStorage.setItem('user_id', data.data);
         navigate('/dashboard')
       } else {
         setError(data.message || "Login failed")
@@ -41,7 +41,7 @@ const Login = () => {
       <ErrorPage
         errorTitle={error}
         navigater="/register"
-        buttonName="Go back to Login page"
+        buttonName="Go back"
       />
     );
   }

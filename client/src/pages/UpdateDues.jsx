@@ -32,7 +32,7 @@ const RemoveorEdit = () => {
             if (!formData.addorSub || !formData.due_amount || !formData.phone_no) {
                 return alert("All Fields are Mandatory")
             }
-            const response = await fetch('https://general-store-kaatha-production.up.railway.app/updatecustomer', {
+            const response = await fetch('http://localhost:5001/owner/updatedues', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...formData, user_id })
@@ -40,7 +40,7 @@ const RemoveorEdit = () => {
             const data = await response.json()
             if (response.ok) {
                 alert("Due Amount updated Successfully")
-                navigate('/dashboard')
+                navigate('/viewDues')
             } else {
                 setError(data.message || "Failed to update customer dues or Customer not Found")
             }

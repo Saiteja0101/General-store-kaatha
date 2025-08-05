@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import ErrorPage from "./ErrorPage";
 
 const OwnerDashboard = () => {
   const cards = [
@@ -36,19 +37,20 @@ const OwnerDashboard = () => {
 
   // useEffect is for if user try to redirect to the dashboard without login it will redirect to login page
   useEffect(() => {
-    if (!user_id) {
-      return navigate('/')
+    if (user_id) {
+      storeName();
     }
-  }, [])
+  }, [user_id]);
+
   const storeName = async () => {
     try {
-      const response = await fetch(`https://general-store-kaatha-production.up.railway.app/dashboard?user_id=${user_id}`, {
+      const response = await fetch(`http://localhost:5001/owner/dashboard?user_id=${user_id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       })
       const data = await response.json()
       if (response.ok) {
-        setStoreTitle(data)
+        setStoreTitle(data.data)
       } else {
         setError(data.message || "store name not found")
       }

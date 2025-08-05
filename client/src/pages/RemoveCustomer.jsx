@@ -20,14 +20,14 @@ const RemoveorEdit = () => {
             if (!phone_no) {
                 return alert("All Fields are Mandatory")
             }
-            const response = await fetch('https://general-store-kaatha-production.up.railway.app/removecustomer', {
+            const response = await fetch('http://localhost:5001/owner/removecustomer', {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ phone_no, user_id })
             })
             const data = await response.json()
             if (response.ok) {
-                alert("customer removed successfully")
+                alert("customer removed successfully: ")
                 navigate('/dashboard')
             } else {
                 setError(data.message || "Customer not found")

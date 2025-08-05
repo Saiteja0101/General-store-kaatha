@@ -10,20 +10,21 @@ const ViewDues = () => {
     const user_id = localStorage.getItem("user_id");
     useEffect(() => {
         if (!user_id) {
-            return navigate('/')
+            navigate('/');
+        }else{
+            viewDue()
         }
-
-    }, [])
+    }, [navigate, user_id]);
     const viewDue = async () => {
         try {
-            const response = await fetch(`https://general-store-kaatha-production.up.railway.app/viewdues?user_id=${user_id}`, {
+            const response = await fetch(`http://localhost:5001/owner/viewdues?user_id=${user_id}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             })
 
             const data = await response.json()
             if (response.ok) {
-                setViewDues(data)
+                setViewDues(data.data)
             } else {
                 setError(data.message || "Failed to display dues")
             }
@@ -40,11 +41,6 @@ const ViewDues = () => {
             />
         );
     }
-
-
-    useEffect(() => {
-        viewDue();
-    }, []);
 
     return (
         <div className="p-6 max-w-5xl mx-auto">
@@ -84,10 +80,10 @@ const ViewDues = () => {
                             <tbody>
                                 {viewDues.map((due, index) => (
                                     <tr key={due.id || index} className="hover:bg-gray-50">
-                                        <td className="border p-3">{due.customer_name}</td>
-                                        <td className="border p-3">{due.phone_no}</td>
-                                        <td className="border p-3 text-red-600 font-bold">₹{due.due_amount}</td>
-                                        <td className="border p-3">{new Date(due.last_updated).toLocaleString()}</td>
+                                        <td className="border p-3">{due.customerName}</td>
+                                        <td className="border p-3">{due.phoneNo}</td>
+                                        <td className="border p-3 text-red-600 font-bold">₹{due.dueAmount}</td>
+                                        <td className="border p-3">{new Date(due.lastUpdated).toLocaleString()}</td>
                                     </tr>
                                 ))}
                             </tbody>

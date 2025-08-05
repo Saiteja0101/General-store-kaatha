@@ -34,7 +34,7 @@ const AddCustomer = () => {
             if (!formData.customer_name || !formData.due_amount || !formData.phone_no) {
                 return alert("All Fields are Mandatory")
             }
-            const response = await fetch('https://general-store-kaatha-production.up.railway.app/addcustomer', {
+            const response = await fetch('http://localhost:5001/owner/addcustomer', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...formData, user_id })
@@ -42,7 +42,7 @@ const AddCustomer = () => {
 
             const data = await response.json();
             if (response.ok) {
-                alert("Customer added successfully");
+                alert("Customer added successfully: ", formData.phone_no);
                 navigate('/viewDues');
             } else {
                 setError(data.message || "Failed to add customer")
