@@ -5,7 +5,7 @@ const register = async (req, res) => {
     try {
         const { username, email, phoneNo, password, storename } = req.body;
 
-        if (!username || !isNaN(phoneNo) || !password || !storename) {
+        if (!username || !phoneNo || !password || !storename) {
             return res.status(400).json({
                 status: false,
                 message: "All fields are mandatory, Enter valid details",
