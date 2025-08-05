@@ -1,33 +1,19 @@
-const { Pool } = require('pg');
-require('dotenv').config();
+const mongoose = require("mongoose");
+const dontenv = require("dotenv");
 
-const isProduction = process.env.NODE_ENV === 'production';
+dontenv.config();
 
-const pool = new Pool(
-  isProduction
-    ? {
-        connectionString: process.env.DATABASE_URL,
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      }
-    : {
-        host: process.env.DB_HOST,
-        port: process.env.DB_PORT,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
-      }
-);
+const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/users";
+// const MONGO_URI = "mongodb://localhost:27017/users";
 
-const connectToDB = async () => {
+const connection = async () => {
   try {
-    await pool.connect();
-    console.log('DB connected');
-  } catch (err) {
-    console.error('DB connection error:', err);
+    await mongoose.connect(MONGO_URI);
+    console.log("Connected to Database ✅", MONGO_URI);
+  } catch (error) {
+    console.error("Error connecting to Database: ", error);
+    process.exit(1);
   }
 };
-connectToDB();
 
-module.exports = pool;
+module.exports = connection ;
