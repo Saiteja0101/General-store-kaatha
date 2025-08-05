@@ -28,11 +28,12 @@ const RemoveorEdit = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        //const localUrl = "http://localhost:5001/"
         try {
             if (!formData.addorSub || !formData.due_amount || !formData.phone_no) {
                 return alert("All Fields are Mandatory")
             }
-            const response = await fetch('http://localhost:5001/owner/updatedues', {
+            const response = await fetch('https://general-store-kaatha-production.up.railway.app/owner/updatedues', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...formData, user_id })
