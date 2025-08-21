@@ -39,10 +39,13 @@ const register = async (req, res) => {
 
         console.log("Register Successful:", newUser);
 
+        // this is for token verification
+        const loginUser = await model.findOne({ phoneNo });
+        
         return res.status(200).json({
             status: true,
             message: "Register successful",
-            data: newUser
+            data: loginUser._id.toString()
         });
 
     } catch (err) {

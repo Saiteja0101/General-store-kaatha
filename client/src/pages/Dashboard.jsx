@@ -74,6 +74,11 @@ const OwnerDashboard = () => {
     storeName();
   }, []);
 
+  const handleLogout = () => {
+      localStorage.removeItem('user_id')
+      navigate('/')
+  }
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -84,9 +89,9 @@ const OwnerDashboard = () => {
           </Link>
           Dashboard
         </h1>
-        <Link to="/" className="bg-white text-blue-600 px-4 py-2 rounded-md hover:bg-gray-200">
+        <button onClick={handleLogout} className="bg-white text-blue-600 px-4 py-2 rounded-md hover:bg-gray-200">
           Logout
-        </Link>
+        </button>
       </nav>
 
       {/* Main Content */}
