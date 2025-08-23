@@ -23,7 +23,8 @@ const update = async (req, res) => {
     }
     const amount = parseFloat(due_amount)
     // Add or subtract due amount based on addorSub
-    customer.dueAmount = addorSub === '-SUB' ? customer.dueAmount -= amount : customer.dueAmount += amount    
+    customer.dueAmount = addorSub === '-SUB' ? customer.dueAmount -= amount : customer.dueAmount += amount
+    customer.lastUpdated = new Date().toLocaleString();
 
     await customer.save();
 
