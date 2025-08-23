@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { ArrowLeft } from 'lucide-react';
 import { Link, useNavigate } from "react-router-dom";
-import Home from "../components/Home";
-import ErrorPage from './ErrorPage'
+import ErrorPage from "../ErrorPage";
+import { ArrowLeft } from "lucide-react";
 
-const Register = () => {
-  const [formData, setFormData] = useState({ username: "", storename: "", email: "", phoneNo: "", password: "" });
+const CustomerRegister = () => {
+  const [formData, setFormData] = useState({ username: "", email: "", phoneNo: "", password: "" });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -13,40 +12,40 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const { username, phoneNo, password, storename } = formData;
+  const { username, phoneNo, password, email } = formData;
   // handleRegister
   const handleRegister = async (e) => {
-    //const localUrl = "http://localhost:5001/"
     e.preventDefault();
     try {
-      if (!username || !phoneNo || !password || !storename) {
-        return alert("All Fields are Mandatory")
+      if(!username || !email || !phoneNo || !password){
+        return alert('All fields are mandatory')
       }
-      const response = await fetch('https://general-store-kaatha-production.up.railway.app/auth/register', {
+
+      //const localUrl = "http://localhost:5001/"
+      const response = await fetch('http://localhost:5001/customer/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': "application/json"
-        },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(formData)
       })
-
+  
       const data = await response.json()
-      // console.log(data);
-      if (response.ok) {
-        localStorage.setItem("user_id", data.data);
-        navigate('/owner/dashboard')
-      } else {
-        setError(data.message || "Registration failed")
+  
+      if(!response.ok){
+        return setError(data.message || "Register failed")
       }
-    } catch (err) {
-      setError(err.message || "Something went wrong")
+  
+      localStorage.setItem('authentication-id', data.data)
+      navigate('/customer/dashboard')
+    } catch (error) {
+      setError(error.message || 'Something went wrong')
     }
+
   };
   if (error) {
     return (
       <ErrorPage
         errorTitle={error}
-        navigater="/owner/login"
+        navigater="/customer/login"
         buttonName="Go back"
       />
     );
@@ -56,7 +55,7 @@ const Register = () => {
 
   return (
     <>
-      <nav className="bg-blue-600 text-white p-4 shadow-md">
+      <nav className="bg-green-600 text-white p-4 shadow-md">
         <div className="container mx-auto flex justify-between items-center">
           <Link to="/" className="flex items-center gap-2 text-gray-100 hover:text-white">
             <ArrowLeft size={24} />
@@ -65,7 +64,12 @@ const Register = () => {
         </div>
       </nav>
       <div className="bg-gray-100 min-h-screen">
-        <Home />
+        <div className="container mx-auto text-center py-20 px-4">
+          <h2 className="text-4xl font-bold mb-4">Check your dues from all stores in one place</h2>
+          <p className="text-lg text-gray-700 mb-6">
+            The customer can view all the pending dues they have across different stores in one place.
+          </p>
+        </div>
         <div className=" flex items-center justify-center">
           <div className="bg-white p-8 rounded-lg shadow-md w-96">
             <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
@@ -76,20 +80,8 @@ const Register = () => {
                   type="text"
                   name="username"
                   value={formData.username}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="Enter your full name"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">Store Name</label>
-                <input
-                  type="text"
-                  name="storename"
-                  value={formData.storename}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="If you have a Store, Enter Name"
                   onChange={handleChange}
                   required
                 />
@@ -100,7 +92,7 @@ const Register = () => {
                   type="email"
                   name="email"
                   value={formData.email}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="Enter your email"
                   onChange={handleChange}
                   required
@@ -113,7 +105,7 @@ const Register = () => {
                   name="phoneNo"
                   maxLength={10}
                   value={formData.phoneNo}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="Enter your Phone No"
                   onChange={handleChange}
                   required
@@ -126,7 +118,7 @@ const Register = () => {
                   name="password"
                   minLength={5}
                   value={formData.password}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="Enter your password"
                   onChange={handleChange}
                   required
@@ -134,11 +126,11 @@ const Register = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition"
+                className="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition"
               >
                 Register
               </button>
-              <Link to='/owner/login' className="gap-2 flex justify-center mt-1">
+              <Link to='/customer/login' className="gap-2 flex justify-center mt-1">
                 <h2 className="text-xs text-center mb-4 underline">Already have an account? <span className="font-bold text-blue-600">LogIn</span></h2>
               </Link>
             </form>
@@ -149,4 +141,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default CustomerRegister;

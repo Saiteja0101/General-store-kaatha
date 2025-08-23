@@ -4,15 +4,23 @@ const dotenv = require('dotenv')
 const connection = require('./config/db.js')
 dotenv.config()
 
+// owner operations
 const addCustomerRoute = require('./routes/addCustomer.js')
 const removeCustomerRoute = require('./routes/removeCustomer.js')
 const updateDueRoute = require('./routes/updateCustomer.js')
 const viewDuesRoute = require('./routes/fetchDues.js')
 const dashboardRoute = require('./routes/dashboard.js')
-// authentication routes
+// owner authentication 
 const login = require('./routes/login.js')
 const register = require('./routes/register.js')
 
+// customer authentication
+const customerLogin = require('./customer_Server/routes/login.js')
+const customerRegister = require('./customer_Server/routes/register.js')
+
+// customer operations
+const customerDashboardRoute = require('./customer_Server/routes/dashboard.js')
+const customerCheckDuesRoute = require('./customer_Server/routes/viewdues.js')
 
 const app = express()
 const PORT = process.env.PORT || 5001
@@ -27,7 +35,7 @@ app.get('/', (req, res) =>{
     res.send("server running...")
 })
 
-// auth Route
+//owner auth Route
 app.use('/auth/register', register)
 app.use('/auth/login', login)
 
@@ -38,6 +46,12 @@ app.use('/owner/updatedues', updateDueRoute)
 app.use('/owner/viewdues', viewDuesRoute)
 app.use('/owner/dashboard', dashboardRoute)
 
+
+// customer operations
+app.use('/customer/login', customerLogin)
+app.use('/customer/register', customerRegister)
+app.use('/customer/dashboard', customerDashboardRoute)
+app.use('/customer/viewdues', customerCheckDuesRoute)
 
 app.listen(PORT, async () => {
     try {

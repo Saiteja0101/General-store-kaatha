@@ -1,48 +1,48 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Home from "../components/Home";
-import ErrorPage from './ErrorPage';
+import ErrorPage from '../ErrorPage';
 import { ArrowLeft } from "lucide-react";
-
-const Login = () => {
+const CustomerLogin = () => {
   const [formData, setFormData] = useState({ phoneNo: "", password: "" });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   // handle login
   const handleLogin = async (e) => {
-    //const localUrl = "http://localhost:5001/"
     e.preventDefault();
     try {
-      const response = await fetch("https://general-store-kaatha-production.up.railway.app/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
 
-      const data = await response.json();
-      if (response.ok) {
-        localStorage.setItem('user_id', data.data);
-        navigate('/owner/dashboard')
-      } else {
-        setError(data.message || "Login failed")
+      if (!formData.phoneNo || !formData.password) {
+        return alert("All fields are mandatory")
       }
+
+      //const localUrl = "http://localhost:5001/"
+      const response = await fetch('http://localhost:5001/customer/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await response.json()
+      if (!response.ok) {
+        return setError(data.message || 'Failed to Login')
+      }
+      localStorage.setItem('authentication-id', data.data)
+      navigate('/customer/dashboard')
 
     } catch (error) {
       setError(error.message || "Something went wrong")
     }
+
   };
   if (error) {
     return (
       <ErrorPage
         errorTitle={error}
-        navigater="/owner/register"
+        navigater="/customer/register"
         buttonName="Go back"
       />
     );
@@ -51,7 +51,7 @@ const Login = () => {
 
   return (
     <>
-      <nav className="bg-blue-600 text-white p-4 shadow-md">
+      <nav className="bg-green-600 text-white p-4 shadow-md">
         <div className="container mx-auto flex justify-between items-center">
           <Link to="/" className="flex items-center gap-2 text-gray-100 hover:text-white">
             <ArrowLeft size={24} />
@@ -60,7 +60,12 @@ const Login = () => {
         </div>
       </nav>
       <div className="bg-gray-100 min-h-screen">
-        <Home />
+        <div className="container mx-auto text-center py-20 px-4">
+          <h2 className="text-4xl font-bold mb-4">Check your dues from all stores in one place</h2>
+          <p className="text-lg text-gray-700 mb-6">
+            The customer can view all the pending dues they have across different stores in one place.
+          </p>
+        </div>
         <div className=" flex items-center justify-center">
           <div className="bg-white p-8 rounded-lg shadow-md w-96">
             <h2 className="text-2xl font-bold text-center mb-4">LogIn</h2>
@@ -71,7 +76,7 @@ const Login = () => {
                   type="tel"
                   name="phoneNo"
                   value={formData.phoneNo}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="Enter your phone No"
                   onChange={handleChange}
                   maxLength={10}
@@ -84,7 +89,7 @@ const Login = () => {
                   type="password"
                   name="password"
                   value={formData.password}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="Enter your password"
                   onChange={handleChange}
                   required
@@ -92,12 +97,12 @@ const Login = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition"
+                className="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition"
               >
                 Login
               </button>
-              <Link to='/owner/register' className="gap-2 flex justify-center">
-                <h2 className="text-xs text-center mb-4 underline">Don't have an account? <span className="font-bold text-blue-600">Register</span></h2>
+              <Link to='/customer/register' className="gap-2 flex justify-center">
+                <h2 className="text-xs text-center mb-4 underline">Don't have an? <span className="font-bold text-blue-600">Register</span></h2>
               </Link>
             </form>
           </div>
@@ -107,4 +112,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default CustomerLogin;

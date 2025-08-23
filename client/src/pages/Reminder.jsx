@@ -12,7 +12,7 @@ const Reminder = () => {
   const user_id = localStorage.getItem("user_id");
   useEffect(() => {
     if (!user_id) {
-      return navigate('/')
+      return navigate('/owner/login')
     }
 
   }, [])
@@ -38,7 +38,7 @@ const Reminder = () => {
     <div className="min-h-screen bg-gray-100 p-6 flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
         <div className="mb-6">
-          <Link to='/dashboard' className="flex items-center gap-2 text-black hover:text-gray-600">
+          <Link to='/owner/dashboard' className="flex items-center gap-2 text-black">
             <ArrowLeft size={24} />
             <h2 className="text-2xl font-bold ml-2">Send reminder Dues</h2>
           </Link>
@@ -89,7 +89,7 @@ const Reminder = () => {
 
         <div className="flex gap-2">
           {/*back to owner dashboard */}
-          <Link to='/dashboard' className="flex gap-2">
+          <Link to='/owner/dashboard' className="flex gap-2">
             <button
               type="submit"
               className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700"

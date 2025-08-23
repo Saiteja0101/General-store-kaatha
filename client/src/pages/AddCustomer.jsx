@@ -15,7 +15,7 @@ const AddCustomer = () => {
 
     useEffect(() => {
         if (!user_id) {
-            return navigate('/')
+            return navigate('/owner/login')
         }
 
     }, [])
@@ -44,7 +44,7 @@ const AddCustomer = () => {
             const data = await response.json();
             if (response.ok) {
                 alert("Customer added successfully: ", formData.phone_no);
-                navigate('/viewDues');
+                navigate('/owner/viewDues');
             } else {
                 setError(data.message || "Failed to add customer")
             }
@@ -57,7 +57,7 @@ const AddCustomer = () => {
         return (
             <ErrorPage
                 errorTitle={error}
-                navigater="/dashboard"
+                navigater="/owner/dashboard"
                 buttonName="Back to Dashboard"
             />
         );
@@ -68,7 +68,7 @@ const AddCustomer = () => {
         <div className="min-h-screen bg-gray-100 p-6 flex justify-center items-center">
             <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
                 <div className="mb-6">
-                    <Link to='/dashboard' className="flex items-center gap-2 text-black hover:text-gray-600">
+                    <Link to='/owner/dashboard' className="flex items-center gap-2 text-black hover:text-gray-600">
                         <ArrowLeft size={24} />
                         <h2 className="text-2xl font-bold ml-2">Add Customer</h2>
                     </Link>

@@ -7,27 +7,27 @@ const OwnerDashboard = () => {
     {
       title: 'Add Customer',
       description: 'Register a new customer with their phone number & email.',
-      link: 'addCustomer'
+      link: 'owner/addCustomer'
     },
     {
       title: 'Remove Customer',
       description: 'Remove an existing customer if dues becomes zero or update dues of a customer.',
-      link: 'removeCustomer'
+      link: 'owner/removeCustomer'
     },
     {
       title: 'Update Customer Dues',
       description: ' update customer dues.',
-      link: 'updateDues'
+      link: 'owner/updateDues'
     },
     {
       title: 'View Dues',
       description: 'Check pending payments from customers.',
-      link: 'viewDues'
+      link: 'owner/viewDues'
     },
     {
       title: 'Send Reminders',
       description: 'Automatically notify customers about their dues.',
-      link: 'reminder'
+      link: 'owner/reminder'
     },
   ]
   const [storeTitle, setStoreTitle] = useState("")
@@ -37,8 +37,8 @@ const OwnerDashboard = () => {
 
   // useEffect is for if user try to redirect to the dashboard without login it will redirect to login page
   useEffect(() => {
-    if (user_id) {
-      storeName();
+    if (!user_id) {
+      navigate('/owner/login')
     }
   }, [user_id]);
 
@@ -64,7 +64,7 @@ const OwnerDashboard = () => {
     return (
       <ErrorPage
         errorTitle={error}
-        navigater="/"
+        navigater="/owner/login"
         buttonName="Back to login page"
       />
     );
@@ -76,7 +76,7 @@ const OwnerDashboard = () => {
 
   const handleLogout = () => {
       localStorage.removeItem('user_id')
-      navigate('/')
+      navigate('/owner/login')
   }
 
 
@@ -85,11 +85,11 @@ const OwnerDashboard = () => {
       {/* Navbar */}
       <nav className="bg-blue-600 text-white p-4 shadow-md flex justify-between">
         <h1 className="text-xl font-bold flex gap-1">
-          <Link to='/dashboard'>
+          <Link to='/owner/dashboard'>
           </Link>
-          Dashboard
+          Owner Dashboard
         </h1>
-        <button onClick={handleLogout} className="bg-white text-blue-600 px-4 py-2 rounded-md hover:bg-gray-200">
+        <button onClick={handleLogout} className="bg-white text-blue-600 px-4 py-2 font-semibold rounded-md hover:bg-gray-200">
           Logout
         </button>
       </nav>
