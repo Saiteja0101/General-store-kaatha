@@ -22,7 +22,7 @@ const CustomerRegister = () => {
       }
 
       //const localUrl = "http://localhost:5001/"
-      const response = await fetch('http://localhost:5001/customer/register', {
+      const response = await fetch('https://general-store-kaatha-production.up.railway.app/auth/customer/register', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(formData)

@@ -36,8 +36,8 @@ app.get('/', (req, res) =>{
 })
 
 //owner auth Route
-app.use('/auth/register', register)
-app.use('/auth/login', login)
+app.use('/auth/owner/register', register)
+app.use('/auth/owner/login', login)
 
 // owner Route
 app.use('/owner/addcustomer', addCustomerRoute)
@@ -47,9 +47,10 @@ app.use('/owner/viewdues', viewDuesRoute)
 app.use('/owner/dashboard', dashboardRoute)
 
 
-// customer operations
-app.use('/customer/login', customerLogin)
-app.use('/customer/register', customerRegister)
+app.use('/auth/customer/login', customerLogin)
+app.use('/auth/customer/register', customerRegister)
+
+// customer services
 app.use('/customer/dashboard', customerDashboardRoute)
 app.use('/customer/viewdues', customerCheckDuesRoute)
 

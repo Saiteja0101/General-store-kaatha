@@ -18,7 +18,7 @@ const Login = () => {
     //const localUrl = "http://localhost:5001/"
     e.preventDefault();
     try {
-      const response = await fetch("https://general-store-kaatha-production.up.railway.app/auth/login", {
+      const response = await fetch("https://general-store-kaatha-production.up.railway.app/auth/owner/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
