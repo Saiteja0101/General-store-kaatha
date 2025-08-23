@@ -85,7 +85,7 @@ const ViewMyDues = () => {
                                         <td className="border p-3 text-red-600 font-bold">₹{due.dueAmount}</td>
                                         <td className="border p-3">{due.storeName}</td>
                                         <td className="border p-3">
-                                            {new Date(due.lastUpdated).toLocaleString()}
+                                            {new Date(due.lastUpdated || due.updatedAt).toLocaleString()}
                                         </td>
                                     </tr>
                                 ))}
