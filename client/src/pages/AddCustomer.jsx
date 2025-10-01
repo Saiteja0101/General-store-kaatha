@@ -35,7 +35,7 @@ const AddCustomer = () => {
             if (!formData.customer_name || !formData.due_amount || !formData.phone_no) {
                 return alert("All Fields are Mandatory")
             }
-            const response = await fetch('https://general-store-kaatha-production.up.railway.app/owner/addcustomer', {
+            const response = await fetch('https://general-store-kaatha.onrender.com/owner/addcustomer', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...formData, user_id })

@@ -21,7 +21,7 @@ const RemoveorEdit = () => {
             if (!phone_no) {
                 return alert("All Fields are Mandatory")
             }
-            const response = await fetch('https://general-store-kaatha-production.up.railway.app/owner/removecustomer', {
+            const response = await fetch('https://general-store-kaatha.onrender.com/owner/removecustomer', {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ phone_no, user_id })

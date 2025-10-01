@@ -22,7 +22,7 @@ const Register = () => {
       if (!username || !phoneNo || !password || !storename) {
         return alert("All Fields are Mandatory")
       }
-      const response = await fetch('https://general-store-kaatha-production.up.railway.app/auth/owner/register', {
+      const response = await fetch('https://general-store-kaatha.onrender.com/auth/owner/register', {
         method: 'POST',
         headers: {
           'Content-Type': "application/json"

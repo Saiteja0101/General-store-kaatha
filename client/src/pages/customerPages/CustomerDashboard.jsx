@@ -13,7 +13,7 @@ const CustomerDashboard = () => {
     
     //const localUrl = "http://localhost:5001/"
     try {
-      const response = await fetch(`https://general-store-kaatha-production.up.railway.app/customer/dashboard?customer_id=${customer_id}`, {
+      const response = await fetch(`https://general-store-kaatha.onrender.com/customer/dashboard?customer_id=${customer_id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       })
